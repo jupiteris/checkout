@@ -35,10 +35,9 @@ const useStyles = makeStyles(() => ({
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      '& span': {
-        fontSize: 16,
-        color: '#000000'
-      }
+      border: 'unset',
+      fontSize: 16,
+      color: '#000000'
     },
     '& .agree': {
       display: 'flex',
@@ -148,8 +147,9 @@ const Contact = () => {
     contactInfoFinished
   } = useSelector(state => state.ui.collapse);
   const dispatch = useDispatch();
+  const [contact, setContact] = useState(dummyContact);
 
-  const contacts = Object.values(dummyContact);
+  const contactKeys = Object.keys(contact);
 
   const handleContinue = () => {
     dispatch(completeContactInfo(true));
@@ -171,20 +171,28 @@ const Contact = () => {
     dispatch(expandContactInfo(expanded));
   };
 
+  const handleChange = (e, key) => {
+    setContact({ ...contact, [key]: e.target.value });
+  };
+
   return (
     <>
       <Collapse
         summary="2.  Contact info"
-        disabled={!scheduleFinished}
+        // disabled={!scheduleFinished}
+        disabled={false}
         finished={contactInfoFinished}
         expanded={contactInfoExpanded}
         handleExpand={handleExpand}
         details={
           <div className={classes.contacts}>
-            {contacts.map((e, index) => (
-              <div className="contact" key={index}>
-                <span>{e}</span>
-              </div>
+            {contactKeys.map(key => (
+              <input
+                className="contact"
+                key={key}
+                value={contact[key]}
+                onChange={e => handleChange(e, key)}
+              />
             ))}
             <div className="agree">
               <Checkbox color="primary" onChange={handleAgree} value={agree} />
