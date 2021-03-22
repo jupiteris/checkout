@@ -179,8 +179,8 @@ const Contact = () => {
     <>
       <Collapse
         summary="2.  Contact info"
-        // disabled={!scheduleFinished}
-        disabled={false}
+        disabled={!scheduleFinished}
+        // disabled={false}
         finished={contactInfoFinished}
         expanded={contactInfoExpanded}
         handleExpand={handleExpand}
