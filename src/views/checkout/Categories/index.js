@@ -93,7 +93,7 @@ function Categories() {
   const classes = useStyles();
 
   const handleClick = () => {
-    window.location.href = '/app/signup-confirmation';
+    window.location.href = '/app/checkout';
   };
 
   return (

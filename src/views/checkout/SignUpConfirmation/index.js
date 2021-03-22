@@ -4,7 +4,6 @@ import Page from 'src/components/Page';
 
 const useStyles = makeStyles(() => ({
   root: {
-    fontFamily: 'Apercu',
     fontStyle: 'normal',
     fontWeight: 'normal'
   },
@@ -47,8 +46,7 @@ const useStyles = makeStyles(() => ({
       flexFlow: 'column',
       marginTop: 24,
       '& > p': {
-        padding: 0,
-        fontFamily: 'Roboto'
+        padding: 0
       },
       '& .code': {
         display: 'flex',
@@ -58,8 +56,7 @@ const useStyles = makeStyles(() => ({
         marginTop: 10,
         '& span': {
           fontWeight: 500,
-          fontSize: 36,
-          fontFamily: 'Roboto'
+          fontSize: 36
         },
         '& button': {
           width: 130,
@@ -69,8 +66,8 @@ const useStyles = makeStyles(() => ({
           fontWeight: 500,
           fontSize: 16,
           color: '#FFFFFF',
-          border: 'unset',
-          fontFamily: 'Apercu'
+          border: 'unset'
+          // fontFamily: 'Apercu'
         }
       },
       '& .copied': {
@@ -83,22 +80,20 @@ const useStyles = makeStyles(() => ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          fontFamily: 'Apercu',
+          // fontFamily: 'Apercu',
           margin: '10px 0px'
         }
       }
     },
     '& .step2': {
       '& > p': {
-        padding: 0,
-        fontFamily: 'Roboto'
+        padding: 0
       }
     },
     '& .step3': {
       marginTop: 50,
       '& > p': {
-        padding: 0,
-        fontFamily: 'Roboto'
+        padding: 0
       }
     }
   },
@@ -107,7 +102,6 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     flexFlow: 'column',
     alignItems: 'center',
-    fontFamily: 'Roboto',
     color: '#7A39CC',
     marginTop: 40,
     '& p:nth-child(1)': {
@@ -130,6 +124,13 @@ function SignUpConfirmation() {
   const [copied, setcopied] = useState(false);
   const msg = 'We’ve sent a confirmation copy to your email xxx@gmail.com';
   const handleCopy = () => {
+    const copyText = document.getElementById('code');
+    const textArea = document.createElement('textarea');
+    textArea.value = copyText.textContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand('Copy');
+    textArea.remove();
     setcopied(true);
   };
   return (
@@ -142,7 +143,7 @@ function SignUpConfirmation() {
           <div className="step1">
             <p>1. Enter your code in Haxo app</p>
             <div className="code">
-              <span>7hj8oi</span>
+              <span id="code">7hj8oi</span>
               <button onClick={handleCopy}>Copy code</button>
             </div>
             <div className="copied">

@@ -24,7 +24,7 @@ const ExpansionPanelSummary = withStyles({
     height: 64,
     padding: 10,
     '& .MuiExpansionPanelSummary-content': {
-      fontFamily: 'Apercu',
+      // fontFamily: 'Apercu',
       fontSize: 16,
       color: '#222222'
     },
@@ -44,10 +44,16 @@ export default function Collapse({
   summary = 'summary',
   disabled = false,
   finished = false,
-  details
+  details,
+  expanded = false,
+  handleExpand
 }) {
   return (
-    <ExpansionPanel disabled={disabled}>
+    <ExpansionPanel
+      disabled={disabled}
+      expanded={expanded}
+      onChange={handleExpand}
+    >
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
         className="border-red"

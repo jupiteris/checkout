@@ -1,13 +1,11 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import accountReducer from './accountReducer';
-import notificationsReducer from './notificationsReducer';
-import chatReducer from './chatReducer';
+import uiReducer from './uiReducer';
 
 const rootReducer = combineReducers({
   account: accountReducer,
-  notifications: notificationsReducer,
-  chat: chatReducer,
+  ui: uiReducer,
   form: formReducer
 });
 

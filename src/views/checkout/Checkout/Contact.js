@@ -11,6 +11,13 @@ import {
 } from '@material-ui/core';
 import Collapse from './Collapse';
 import CloseIcon from '@material-ui/icons/Close';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  expandPaymentInfo,
+  expandContactInfo,
+  expandSchedule,
+  completeContactInfo
+} from 'src/actions/uiActions';
 
 const useStyles = makeStyles(() => ({
   contacts: {
@@ -67,7 +74,7 @@ const useStyles = makeStyles(() => ({
       background: '#7A39CC',
       borderRadius: 100,
       border: 'unset',
-      fontFamily: 'Apercu',
+      // fontFamily: 'Apercu',
       fontWeight: 500,
       fontSize: 16,
       color: 'white'
@@ -113,7 +120,7 @@ const useStyles = makeStyles(() => ({
           border: 'unset',
           fontSize: 16,
           color: '#ffffff',
-          fontFamily: 'Apercu',
+          // fontFamily: 'Apercu',
           fontWeight: 'bold'
         }
       }
@@ -133,14 +140,22 @@ const dummyContact = {
 
 const Contact = () => {
   const classes = useStyles();
-  const [finished, setFinished] = useState(false);
   const [agree, setAgree] = useState(false);
   const [open, setOpen] = useState(false);
+  const {
+    contactInfoExpanded,
+    scheduleFinished,
+    contactInfoFinished
+  } = useSelector(state => state.ui.collapse);
+  const dispatch = useDispatch();
 
   const contacts = Object.values(dummyContact);
 
   const handleContinue = () => {
-    setFinished(true);
+    dispatch(completeContactInfo(true));
+    dispatch(expandSchedule(false));
+    dispatch(expandContactInfo(false));
+    dispatch(expandPaymentInfo(true));
   };
 
   const handleAgree = event => {
@@ -152,12 +167,18 @@ const Contact = () => {
     setOpen(false);
   };
 
+  const handleExpand = (e, expanded) => {
+    dispatch(expandContactInfo(expanded));
+  };
+
   return (
     <>
       <Collapse
         summary="2.  Contact info"
-        disabled={false}
-        finished={finished}
+        disabled={!scheduleFinished}
+        finished={contactInfoFinished}
+        expanded={contactInfoExpanded}
+        handleExpand={handleExpand}
         details={
           <div className={classes.contacts}>
             {contacts.map((e, index) => (
