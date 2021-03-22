@@ -131,7 +131,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const dummyContact = {
+const placeholder = {
   name: 'Abby',
   email: 'abbyisthebest@gamil.com',
   phone: '(858)337-0025'
@@ -147,7 +147,11 @@ const Contact = () => {
     contactInfoFinished
   } = useSelector(state => state.ui.collapse);
   const dispatch = useDispatch();
-  const [contact, setContact] = useState(dummyContact);
+  const [contact, setContact] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
 
   const contactKeys = Object.keys(contact);
 
@@ -190,6 +194,7 @@ const Contact = () => {
               <input
                 className="contact"
                 key={key}
+                placeholder={placeholder[key]}
                 value={contact[key]}
                 onChange={e => handleChange(e, key)}
               />
