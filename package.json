@@ -35,7 +35,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.9.6",
     "@mdx-js/react": "^1.5.8",
-    "axios": "^0.19.2",
+    "axios": "^1.8.2",
     "axios-mock-adapter": "^1.17.0",
     "change-case": "^4.1.1",
     "clsx": "^1.1.0",
